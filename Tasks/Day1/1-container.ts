@@ -1,5 +1,18 @@
 class Integer {
-  // Put implementation here
+  #value: number;
+  #isInteger = (i: number) => i % 1 === 0 ? true : false;
+  get() {
+    return this.#value;
+  }
+
+  add = (i: Integer) => new Integer(this.#value + i.get());
+  div = (i: Integer) => new Integer(this.#value / i.get());
+  gt = (i: Integer) => this.#value > i.get() ? true : false;
+
+  constructor(i: number) {
+    if (!this.#isInteger(i)) throw new Error('Not Integer');
+    this.#value = i;
+  }
 }
 
 // Usage
