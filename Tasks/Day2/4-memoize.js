@@ -6,13 +6,24 @@
 const cache = new Map();
 const memoize = (f) => (...args) => {
   const key = args.map((arg) => `${arg}:${typeof arg}`).join(';');
+
   if (cache.has(key)) return cache.get(key);
   const res = f(...args);
   cache.set(key, res);
+
   return res;
 };
 
-const fib = memoize((n) => n <= 1 ? n : fib(n - 1) + fib(n - 2));
+console.time('non-memoized')
+const fib = (n) => n <= 1 ? n : fib(n - 1) + fib(n - 2);
+console.log(fib(40));
+console.timeEnd('non-memoized');
 
-console.log(fib(10));
-console.dir({cache});
+console.log('-------');
+
+console.time('memoized')
+const fibM = memoize((n) => n <= 1 ? n : fibM(n - 1) + fibM(n - 2));
+console.log(fibM(40));
+console.timeEnd('memoized');
+
+// console.dir({cache});
