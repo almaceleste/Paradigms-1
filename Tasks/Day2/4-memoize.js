@@ -16,16 +16,17 @@ const memoize = (f) => (...args) => {
 
 const n = 40;
 
+console.time('memoized');
+const fibM = memoize((n) => n <= 1 ? n : fibM(n - 1) + fibM(n - 2));
+console.log(fibM(n));
+console.timeEnd('memoized');
+
+console.log('-------');
+
 console.time('non-memoized');
 const fib = (n) => n <= 1 ? n : fib(n - 1) + fib(n - 2);
 console.log(fib(n));
 console.timeEnd('non-memoized');
 
-console.log('-------');
-
-console.time('memoized');
-const fibM = memoize((n) => n <= 1 ? n : fibM(n - 1) + fibM(n - 2));
-console.log(fibM(n));
-console.timeEnd('memoized');
 
 // console.dir({cache});
